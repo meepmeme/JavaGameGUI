@@ -65,7 +65,11 @@ public class Main extends JFrame {
     }
 
     private class Handler implements ActionListener {
+        // private vars here
 
+        public void actionPerformed(ActionEvent event) {
+            // do something
+        }
     }
 
     public static void main(String[] args) {
