@@ -6,14 +6,15 @@ Attempts to replicate minesweeper in Java Swing.
 * Features
 9x9 game grid with coordinate guides
 11 bombs (should be able to change later)
-* To code [0/5]
-- [ ] bomb generator
-- [ ] instance variables
-- [ ] handler actions
-- [ ] bomb-at-coordinate checker
-- [ ] 2D array text filler
-* Assignment requirements [2/4]
+* To code [5/6]
+- [X] bomb generator
+- [X] instance variables
+- [X] handler actions
+- [X] bomb-at-coordinate checker
+- [X] 2D array text filler
+- [ ] A better way to restart game.
+* Assignment requirements [4/4]
 - [X] JFrame on start
-- [ ] User input
-- [ ] Popup after input with entered data and feedback
+- [X] User input
+- [X] Popup after input with entered data and feedback
 - [X] Termiante on close
