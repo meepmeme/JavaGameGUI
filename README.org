@@ -1,5 +1,6 @@
 * JMinesweeper: A basic minesweeper clone in Java
-Attempts to replicate minesweeper in Java Swing.
+A Java Swing text-based minesweeper clone.
+[[./screenshot.png]]
 * Features
 9x9 game grid with coordinate guides
 21 bombs (should be able to change later)
