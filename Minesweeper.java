@@ -63,8 +63,8 @@ public class Minesweeper {
 
   private int getBombCount(int x, int y) {
     int bmb = 0;
-    for (int i = x - 1; i < x + 1; i++) {
-      for (int j = y - 1; j < y + 1; j++) {
+    for (int i = x - 1; i <= x + 1; i++) {
+      for (int j = y - 1; j <= y + 1; j++) {
         if (isBomb(i, j))
           bmb++;
       }

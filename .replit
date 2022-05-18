@@ -1,5 +1,5 @@
-compile = "javac -classpath ./out/* -d . $(find . -type f -name '*.java')"
-run = ["java", "-classpath", "./out/*", "Main"]
+compile = "javac -classpath ./ *.java"
+run = ["java", "-classpath", "./", "Main"]
 
 entrypoint = "Main.java"
 hidden = ["**/*.class"]
