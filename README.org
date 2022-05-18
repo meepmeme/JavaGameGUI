@@ -1,0 +1,19 @@
+#+title: GUI Game Project
+#+SETUPFILE: ~/.doom.d/readtheorg_inline/setup.setup
+#+OPTIONS: toc:t author:nil title:t
+* JMinesweeper: A basic minesweeper clone in Java
+Attempts to replicate minesweeper in Java Swing.
+* Features
+9x9 game grid with coordinate guides
+11 bombs (should be able to change later)
+* To code [0/5]
+- [ ] bomb generator
+- [ ] instance variables
+- [ ] handler actions
+- [ ] bomb-at-coordinate checker
+- [ ] 2D array text filler
+* Assignment requirements [2/4]
+- [X] JFrame on start
+- [ ] User input
+- [ ] Popup after input with entered data and feedback
+- [X] Termiante on close
