@@ -12,6 +12,7 @@ public class Main extends JFrame {
   private JButton btn1;
   private JButton btn2;
   private DefaultTableModel model;
+  private JButton btn3;
 
   public Main(Minesweeper s) {
     super("JMinesweeper");
@@ -32,7 +33,7 @@ public class Main extends JFrame {
     this.add(tbl1, c);
 
     gameInfo = new JLabel(
-        "Minesweeper clone. \"_\" is clear, \"f\" is flagged, and any number is how many bombs are near.");
+        "Minesweeper clone. \"CLR\" is clear, \"F\" is flagged, and any number is how many bombs are near.");
     c.gridx = 0;
     c.gridy = 5;
     c.gridwidth = 5;
@@ -42,36 +43,43 @@ public class Main extends JFrame {
     label1 = new JLabel("[X,Y]: [?,?]");
     c.gridx = 0;
     c.gridy = 6;
-    c.gridwidth = 2;
+    c.gridwidth = 1;
     c.gridheight = 1;
     this.add(label1, c);
 
     tf1 = new JTextField(3); // "X,Y". will be read as XCoord, *, YCoord
-    c.gridx = 2;
+    c.gridx = 1;
     c.gridy = 6;
     c.gridwidth = 1;
     c.gridheight = 1;
     this.add(tf1, c);
 
     btn1 = new JButton("Select");
-    c.gridx = 3;
+    c.gridx = 2;
     c.gridy = 6;
     c.gridwidth = 1;
     c.gridheight = 1;
     this.add(btn1, c);
 
     btn2 = new JButton("Flag");
-    c.gridx = 4;
+    c.gridx = 3;
     c.gridy = 6;
     c.gridwidth = 1;
     c.gridheight = 1;
     this.add(btn2, c);
+
+    btn3 = new JButton("Restart");
+    c.gridx = 4;
+    c.gridy = 6;
+    c.gridwidth = 1;
+    c.gridheight = 1;
 
     Handler hand = new Handler(s, model);
     // add things to handler here
     tf1.addActionListener(hand);
     btn1.addActionListener(hand);
     btn2.addActionListener(hand);
+    btn3.addActionListener(hand);
 
     this.pack();
     this.setVisible(true);
@@ -93,20 +101,23 @@ public class Main extends JFrame {
 
     public void actionPerformed(ActionEvent event) {
       // do something
+      if (event.getSource() == btn3) {
+        JOptionPane.showMessageDialog(null, "Restarting game.");
+        s.restartGame();
+      }
       if (event.getSource() == tf1) {
         tmp = event.getActionCommand();
         clickX = getInt(tmp.substring(0, 1));
         clickY = getInt(tmp.substring(2, 3));
         label1.setText("[X,Y]: [" + clickX + "," + clickY + "]");
-        JOptionPane.showMessageDialog(null, "set cursor coords to " + clickX +
-                                                "," + clickY);
+        JOptionPane.showMessageDialog(null, "set cursor coords to " + clickX + "," + clickY);
       }
       if (event.getSource() == btn1) {
-        JOptionPane.showMessageDialog(null, s.clickSpot(clickX, clickY, false));
+        JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, false));
         f.setDataVector(s.vals, s.colTitles());
       }
       if (event.getSource() == btn2) {
-        JOptionPane.showMessageDialog(null, s.clickSpot(clickX, clickY, true));
+        JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, true));
         f.setDataVector(s.vals, s.colTitles());
       }
     }

@@ -6,19 +6,49 @@ public class Minesweeper {
   public String[][] vals;
   private ArrayList<String> checked;
   private int bombCount;
+  private int flagCount;
+  private int clrPoints;
+  private int flagPoints;
+  private int falseFlagPoints;
 
   public Minesweeper() {
     bombCount = 21;
+    flagCount = 0;
+    clrPoints = 1;
+    flagPoints = 15;
+    falseFlagPoints = -10;
     bombs = new int[2][bombCount]; // 2 coords per bomb, 20 bombs
     checked = new ArrayList<String>();
     generateBombs();
     vals = new String[11][11];
+    for (int i = 0; i < vals.length; i++) {
+      for (int j = 0; j < vals[0].length; j++) {
+        vals[i][j] = "";
+      }
+    }
     for (int i = 1; i < 10; i++) {
       vals[0][i] = "\\" + i + "/";
       vals[10][i] = "/" + i + "\\";
       vals[i][0] = "|" + i + "|";
       vals[i][10] = "|" + i + "|";
     }
+  }
+
+  public void restartGame() {
+    flagCount = 0;
+    generateBombs();
+    for (int i = 0; i < vals.length; i++) {
+      for (int j = 0; j < vals[0].length; j++) {
+        vals[i][j] = "";
+      }
+    }
+    for (int i = 1; i < 10; i++) {
+      vals[0][i] = "\\" + i + "/";
+      vals[10][i] = "/" + i + "\\";
+      vals[i][0] = "|" + i + "|";
+      vals[i][10] = "|" + i + "|";
+    }
+    checked.clear();
   }
 
   public int getBombNum() {
@@ -49,7 +79,7 @@ public class Minesweeper {
           }
           if (isChecked == false) {
             checked.add(x + "," + y);
-            vals[x][y] = "_";
+            vals[x][y] = "CLR";
             updateGameGrid(x - 1, y);
             updateGameGrid(x, y - 1);
             updateGameGrid(x, y + 1);
@@ -85,19 +115,56 @@ public class Minesweeper {
     checked.clear();
     if (isBomb(x, y)) {
       if (flag) {
-        vals[x][y] = "f";
-        return ("Flagged " + x + "," + y);
+        if (vals[x][y].equals("F")) {
+          flagCount--;
+          vals[x][y] = "";
+          return ("Un-flagged " + x + "," + y);
+        } else {
+          flagCount++;
+          vals[x][y] = "F";
+          return ("Flagged " + x + "," + y);
+        }
       } else {
         vals[x][y] = "X";
-        return ("Clicked " + x + "," + y + ".\nIt was a bomb.\nRestart program for new game.");
+        return ("Clicked " + x + "," + y + ".\nIt was a bomb.\nScore: " + calculateScore());
       }
     } else {
       if (flag) {
-        return ("Flagged " + x + "," + y);
+        if (vals[x][y].equals("F")) {
+          flagCount--;
+          vals[x][y] = "";
+          return ("Un-flagged " + x + "," + y);
+        } else {
+          flagCount++;
+          vals[x][y] = "F";
+          return ("Flagged " + x + "," + y);
+        }
       } else {
         updateGameGrid(x, y);
         return ("Clicked " + x + "," + y + ".\nUpdated Game Grid.");
       }
     }
+  }
+
+  private int calculateScore() {
+    int scr = 0;
+    for (int i = 1; i <= 10; i++) {
+      for (int j = 1; j <= 10; j++) {
+        if (vals[i][j].equals("F")) {
+          if (isBomb(i, j)) {
+            scr += flagPoints;
+          } else {
+            scr -= falseFlagPoints;
+          }
+        } else if (vals[i][j].equals("CLR")) {
+          scr += clrPoints;
+        } else if (vals[i][j].equals("")) {
+          scr += 0;
+        } else {
+          scr += clrPoints;
+        }
+      }
+    }
+    return scr;
   }
 }
