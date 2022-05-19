@@ -73,6 +73,7 @@ public class Main extends JFrame {
     c.gridy = 6;
     c.gridwidth = 1;
     c.gridheight = 1;
+    this.add(btn3, c);
 
     Handler hand = new Handler(s, model);
     // add things to handler here
@@ -104,6 +105,7 @@ public class Main extends JFrame {
       if (event.getSource() == btn3) {
         JOptionPane.showMessageDialog(null, "Restarting game.");
         s.restartGame();
+        f.setDataVector(s.vals, s.colTitles());
       }
       if (event.getSource() == tf1) {
         tmp = event.getActionCommand();
