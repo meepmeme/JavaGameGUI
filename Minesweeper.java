@@ -118,30 +118,30 @@ public class Minesweeper {
         if (vals[x][y].equals("F")) {
           flagCount--;
           vals[x][y] = "";
-          return ("Un-flagged " + x + "," + y);
+          return ("Un-flagged " + y + "," + x);
         } else {
           flagCount++;
           vals[x][y] = "F";
-          return ("Flagged " + x + "," + y);
+          return ("Flagged " + y + "," + x);
         }
       } else {
         vals[x][y] = "X";
-        return ("Clicked " + x + "," + y + ".\nIt was a bomb.\nScore: " + calculateScore());
+        return ("Clicked " + y + "," + x + ".\nIt was a bomb.\nScore: " + calculateScore());
       }
     } else {
       if (flag) {
         if (vals[x][y].equals("F")) {
           flagCount--;
           vals[x][y] = "";
-          return ("Un-flagged " + x + "," + y);
+          return ("Un-flagged " + y + "," + x);
         } else {
           flagCount++;
           vals[x][y] = "F";
-          return ("Flagged " + x + "," + y);
+          return ("Flagged " + y + "," + x);
         }
       } else {
         updateGameGrid(x, y);
-        return ("Clicked " + x + "," + y + ".\nUpdated Game Grid.");
+        return ("Clicked " + y + "," + x + ".\nUpdated Game Grid.");
       }
     }
   }
