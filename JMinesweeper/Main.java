@@ -1,3 +1,5 @@
+package JMinesweeper;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -112,8 +114,7 @@ public class Main extends JFrame {
         clickX = getInt(tmp.substring(0, 1));
         clickY = getInt(tmp.substring(2, 3));
         label1.setText("[X,Y]: [" + clickX + "," + clickY + "]");
-        JOptionPane.showMessageDialog(null, "set cursor coords to " + clickX +
-                                                "," + clickY);
+        JOptionPane.showMessageDialog(null, "set cursor coords to " + clickX + "," + clickY);
       }
       if (event.getSource() == btn1) {
         JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, false));

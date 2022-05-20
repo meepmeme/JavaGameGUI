@@ -1,5 +1,5 @@
-compile = "javac -classpath ./ *.java"
-run = ["java", "-classpath", "./", "Main"]
+compile = "javac  ./JMinesweeper/*.java"
+run = ["java", "-classpath", "./JMinesweeper", "Main"]
 
 entrypoint = "Main.java"
 hidden = ["**/*.class"]
