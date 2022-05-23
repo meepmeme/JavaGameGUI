@@ -145,11 +145,18 @@ public class Main extends JFrame {
   // create minesweeper object and pass it to the UI.
   public static void main(String[] args) {
     int numBombs = 21; // default
-    // bomb count can be passed as an argument!
-    if (args.length == 2) {
-      if (args[0].equals("-b")) {
+
+    for (int i = 0; i < args.length; i++) {
+      if (args[i].equals("--help")) {
+        System.out.println("JMinesweeper: a basic minesweeper clone");
+        System.out.println("Commandline arguments:");
+        System.out.println("-b N: generate N bombs, provided N>0");
+        System.out.println("--help: display this help menu");
+        System.exit(0);
+      } else if (args[i].equals("-b") && args.length > i + 1) {
+        // bomb count can be passed as an argument!
         try {
-          numBombs = Integer.parseInt(args[1]);
+          numBombs = Integer.parseInt(args[i + 1]);
         } catch (NumberFormatException ex) {
           ex.printStackTrace();
         }
@@ -157,6 +164,7 @@ public class Main extends JFrame {
           numBombs = 1; // minimum 1 bomb SOMEWHERE.
       }
     }
+
     Minesweeper sweep = new Minesweeper(numBombs);
     new Main(sweep);
   }

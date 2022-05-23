@@ -10,18 +10,18 @@ public class Minesweeper {
   public String[][] vals; // game grid
   private ArrayList<String> checked; // temporary var used when checking blank spaces.
   private int bombCount; // how many bombs?
-  private int flagCount; // flags placed. used in scoring.
   private int clrPoints; // used to score later...
   private int flagPoints; // used to score later...
   private int falseFlagPoints; // used to score later...
+  private boolean isDone;
 
   // create the minesweeper game.
   public Minesweeper(int b) {
     bombCount = b; // bomb count as an argument!
-    flagCount = 0;
     clrPoints = 1;
     flagPoints = 15;
     falseFlagPoints = -10;
+    isDone = false;
     bombs = new int[2][bombCount]; // 2 coords per bomb, bombCount bombs
     checked = new ArrayList<String>();
     generateBombs();
@@ -42,7 +42,7 @@ public class Minesweeper {
   // a copy of the constructor, modified and trimmed to effectively restart the
   // game.
   public void restartGame() {
-    flagCount = 0;
+    isDone = false;
     generateBombs();
     for (int i = 0; i < vals.length; i++) {
       for (int j = 0; j < vals[0].length; j++) {
@@ -130,29 +130,29 @@ public class Minesweeper {
   // returns a string based on what it finds
   public String clickSpot(int x, int y, boolean flag) {
     checked.clear();
+    if (isDone) {
+      return "Restart the game!";
+    }
     if (isBomb(x, y)) {
       if (flag) {
         if (vals[x][y].equals("F")) {
-          flagCount--;
           vals[x][y] = "";
           return ("Un-flagged " + y + "," + x);
         } else {
-          flagCount++;
           vals[x][y] = "F";
           return ("Flagged " + y + "," + x);
         }
       } else {
         vals[x][y] = "X";
+        isDone = true;
         return ("Clicked " + y + "," + x + ".\nIt was a bomb.\nScore: " + calculateScore());
       }
     } else {
       if (flag) {
         if (vals[x][y].equals("F")) {
-          flagCount--;
           vals[x][y] = "";
           return ("Un-flagged " + y + "," + x);
         } else {
-          flagCount++;
           vals[x][y] = "F";
           return ("Flagged " + y + "," + x);
         }
