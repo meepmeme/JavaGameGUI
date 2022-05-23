@@ -1,7 +1,7 @@
 compile = "make"
 run = ["java", "-jar", "./JMinesweeper.jar"]
 
-entrypoint = "Main.java"
+entrypoint = "./JMinesweeper/Main.java"
 hidden = ["**/*.class"]
 
 [packager]
