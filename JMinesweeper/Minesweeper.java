@@ -2,24 +2,27 @@ package JMinesweeper;
 
 import java.util.ArrayList;
 
+// the actual minesweeper game logic.
 public class Minesweeper {
 
-  private int[][] bombs;
-  public String[][] vals;
-  private ArrayList<String> checked;
-  private int bombCount;
-  private int flagCount;
-  private int clrPoints;
-  private int flagPoints;
-  private int falseFlagPoints;
+  // data about current game
+  private int[][] bombs; // coords of bombs
+  public String[][] vals; // game grid
+  private ArrayList<String> checked; // temporary var used when checking blank spaces.
+  private int bombCount; // how many bombs?
+  private int flagCount; // flags placed. used in scoring.
+  private int clrPoints; // used to score later...
+  private int flagPoints; // used to score later...
+  private int falseFlagPoints; // used to score later...
 
-  public Minesweeper() {
-    bombCount = 21;
+  // create the minesweeper game.
+  public Minesweeper(int b) {
+    bombCount = b; // bomb count as an argument!
     flagCount = 0;
     clrPoints = 1;
     flagPoints = 15;
     falseFlagPoints = -10;
-    bombs = new int[2][bombCount]; // 2 coords per bomb, 20 bombs
+    bombs = new int[2][bombCount]; // 2 coords per bomb, bombCount bombs
     checked = new ArrayList<String>();
     generateBombs();
     vals = new String[11][11];
@@ -36,6 +39,8 @@ public class Minesweeper {
     }
   }
 
+  // a copy of the constructor, modified and trimmed to effectively restart the
+  // game.
   public void restartGame() {
     flagCount = 0;
     generateBombs();
@@ -53,14 +58,17 @@ public class Minesweeper {
     checked.clear();
   }
 
+  // getter for bombCount
   public int getBombNum() {
     return bombCount;
   }
 
+  // returns array of letters that is SUPPOSED to be a game title!
   public String[] colTitles() {
     return new String[] { "M", "I", "N", "E", "S", "W", "E", "E", "P", "E", "R" };
   }
 
+  // creates randomGen bombs, they occasionally overlap.
   public void generateBombs() {
     for (int i = 1; i < bombs[0].length - 1; i++) {
       bombs[0][i] = ((int) (Math.random() * 9)) + 1;
@@ -68,6 +76,8 @@ public class Minesweeper {
     }
   }
 
+  // a sometimes-recursive method that takes a position and updates the game grid
+  // based on what it finds
   private void updateGameGrid(int x, int y) {
     boolean isChecked = false;
     if (!(x == 0 || x == 10 || y == 0 || y == 10)) {
@@ -93,6 +103,7 @@ public class Minesweeper {
     }
   }
 
+  // returns how many bombs are around a given point.
   private int getBombCount(int x, int y) {
     int bmb = 0;
     for (int i = x - 1; i <= x + 1; i++) {
@@ -104,6 +115,7 @@ public class Minesweeper {
     return bmb;
   }
 
+  // returns a boolean for if a given point is a bomb.
   private boolean isBomb(int x, int y) {
     for (int i = 0; i < bombs[0].length; i++) {
       if (bombs[0][i] == x && bombs[1][i] == y) {
@@ -113,6 +125,9 @@ public class Minesweeper {
     return false;
   }
 
+  // takes coordinates and a boolean for whether this is a flag
+  // and runs the right code to update things.
+  // returns a string based on what it finds
   public String clickSpot(int x, int y, boolean flag) {
     checked.clear();
     if (isBomb(x, y)) {
@@ -148,6 +163,8 @@ public class Minesweeper {
     }
   }
 
+  // end-of-game score calculator.
+  // treats number spaces as clear.
   private int calculateScore() {
     int scr = 0;
     for (int i = 1; i <= 10; i++) {
