@@ -44,7 +44,8 @@ public class Minesweeper {
   // a copy of the constructor, modified and trimmed to effectively restart the
   // game.
   public void restartGame() {
-    hiScore = calculateScore();
+    if (hiScore <= calculateScore())
+      hiScore = calculateScore();
     isDone = false;
     generateBombs();
     for (int i = 0; i < vals.length; i++) {
@@ -81,7 +82,6 @@ public class Minesweeper {
     for (int i = 0; i < bombs[0].length; i++) {
       bombs[0][i] = ((int) (Math.random() * 9)) + 1;
       bombs[1][i] = ((int) (Math.random() * 9)) + 1;
-      System.out.println("bomb at:" + bombs[0][i] + "," + bombs[1][i]);
     }
   }
 
@@ -154,7 +154,8 @@ public class Minesweeper {
       } else {
         vals[x][y] = "X";
         isDone = true;
-        hiScore = calculateScore();
+        if (hiScore <= calculateScore())
+          hiScore = calculateScore();
         return ("Clicked " + y + "," + x + ".\nIt was a bomb.\nScore: " + calculateScore());
       }
     } else {
