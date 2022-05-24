@@ -1,4 +1,4 @@
-compile = "make"
+compile = "make clean jar"
 run = ["java", "-jar", "./JMinesweeper.jar"]
 
 entrypoint = "./JMinesweeper/Main.java"
