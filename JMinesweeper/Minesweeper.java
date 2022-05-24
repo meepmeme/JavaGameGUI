@@ -13,10 +13,12 @@ public class Minesweeper {
   private int clrPoints; // used to score later...
   private int flagPoints; // used to score later...
   private int falseFlagPoints; // used to score later...
-  private boolean isDone;
+  private boolean isDone; // have you hit a bomb?
+  private int hiScore; // high score for session
 
   // create the minesweeper game.
   public Minesweeper(int b) {
+    hiScore = 0;
     bombCount = b; // bomb count as an argument!
     clrPoints = 1;
     flagPoints = 15;
@@ -42,6 +44,7 @@ public class Minesweeper {
   // a copy of the constructor, modified and trimmed to effectively restart the
   // game.
   public void restartGame() {
+    hiScore = calculateScore();
     isDone = false;
     generateBombs();
     for (int i = 0; i < vals.length; i++) {
@@ -63,6 +66,11 @@ public class Minesweeper {
     return bombCount;
   }
 
+  // getter for hiScore
+  public int getHiScore() {
+    return hiScore;
+  }
+
   // returns array of letters that is SUPPOSED to be a game title!
   public String[] colTitles() {
     return new String[] { "M", "I", "N", "E", "S", "W", "E", "E", "P", "E", "R" };
@@ -70,9 +78,10 @@ public class Minesweeper {
 
   // creates randomGen bombs, they occasionally overlap.
   public void generateBombs() {
-    for (int i = 1; i < bombs[0].length - 1; i++) {
+    for (int i = 0; i < bombs[0].length; i++) {
       bombs[0][i] = ((int) (Math.random() * 9)) + 1;
       bombs[1][i] = ((int) (Math.random() * 9)) + 1;
+      System.out.println("bomb at:" + bombs[0][i] + "," + bombs[1][i]);
     }
   }
 
@@ -145,6 +154,7 @@ public class Minesweeper {
       } else {
         vals[x][y] = "X";
         isDone = true;
+        hiScore = calculateScore();
         return ("Clicked " + y + "," + x + ".\nIt was a bomb.\nScore: " + calculateScore());
       }
     } else {
@@ -167,8 +177,8 @@ public class Minesweeper {
   // treats number spaces as clear.
   private int calculateScore() {
     int scr = 0;
-    for (int i = 1; i <= 10; i++) {
-      for (int j = 1; j <= 10; j++) {
+    for (int i = 1; i < 10; i++) {
+      for (int j = 1; j < 10; j++) {
         if (vals[i][j].equals("F")) {
           if (isBomb(i, j)) {
             scr += flagPoints;
@@ -186,4 +196,24 @@ public class Minesweeper {
     }
     return scr;
   }
+
+  // same as calculateScore, but only counts clear spaces.
+  public int publicScore() {
+    int scr = 0;
+    for (int i = 1; i < 10; i++) {
+      for (int j = 1; j < 10; j++) {
+        if (vals[i][j].equals("F")) {
+          scr += 0;
+        } else if (vals[i][j].equals("CLR")) {
+          scr += clrPoints;
+        } else if (vals[i][j].equals("")) {
+          scr += 0;
+        } else {
+          scr += clrPoints;
+        }
+      }
+    }
+    return scr;
+  }
+
 }

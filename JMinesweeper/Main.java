@@ -15,6 +15,7 @@ public class Main extends JFrame {
   private JButton btn2;
   private DefaultTableModel model;
   private JButton btn3;
+  private JLabel label2;
 
   // creates UI, taking the Minesweeper object from the start as an argument.
   public Main(Minesweeper s) {
@@ -83,6 +84,14 @@ public class Main extends JFrame {
     c.gridheight = 1;
     this.add(btn3, c);
 
+    // displays new info every turn.
+    label2 = new JLabel("" + s.getBombNum() + "bombs, score: 0");
+    c.gridx = 0;
+    c.gridy = 7;
+    c.gridwidth = 5;
+    c.gridheight = 1;
+    this.add(label2, c);
+
     // gives buttons and things the ability to trigger stuff
     Handler hand = new Handler(s, model);
     tf1.addActionListener(hand);
@@ -119,6 +128,7 @@ public class Main extends JFrame {
         JOptionPane.showMessageDialog(null, "Restarting game.");
         s.restartGame();
         f.setDataVector(s.vals, s.colTitles());
+        label2.setText(s.getBombNum() + "Bombs, 0 clear spaces. High Score: " + s.getHiScore());
       }
       // if textBox, update coordinates.
       if (event.getSource() == tf1) {
@@ -126,18 +136,19 @@ public class Main extends JFrame {
         clickX = getInt(tmp.substring(0, 1));
         clickY = getInt(tmp.substring(2, 3));
         label1.setText("[X,Y]: [" + clickX + "," + clickY + "]");
-        JOptionPane.showMessageDialog(null, "set cursor coords to " + clickX +
-                                                "," + clickY);
+        JOptionPane.showMessageDialog(null, "set cursor coords to " + clickX + "," + clickY);
       }
       // click a spot. passes false to indicate click.
       if (event.getSource() == btn1) {
         JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, false));
         f.setDataVector(s.vals, s.colTitles());
+        label2.setText(s.getBombNum() + "Bombs, " + s.publicScore() + "clear spaces. High Score: " + s.getHiScore());
       }
       // flag a spot. passes true to indicate is a flag.
       if (event.getSource() == btn2) {
         JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, true));
         f.setDataVector(s.vals, s.colTitles());
+        label2.setText(s.getBombNum() + "Bombs, " + s.publicScore() + "clear spaces. High Score: " + s.getHiScore());
       }
     }
   }
