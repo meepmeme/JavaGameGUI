@@ -175,7 +175,8 @@ public class Main extends JFrame {
         try {
           numBombs = Integer.parseInt(args[i + 1]);
         } catch (NumberFormatException ex) {
-          ex.printStackTrace();
+          System.out.println("Not a number: " + args[i + 1]);
+          System.exit(0);
         }
         if (numBombs < 1)
           numBombs = 1; // minimum 1 bomb SOMEWHERE.
