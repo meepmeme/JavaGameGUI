@@ -15,10 +15,12 @@ public class Minesweeper {
   private int falseFlagPoints; // used to score later...
   private boolean isDone; // have you hit a bomb?
   private int hiScore; // high score for session
+  private int moves; // move counter.
 
   // create the minesweeper game.
   public Minesweeper(int b) {
     hiScore = 0;
+    moves = 0;
     bombCount = b; // bomb count as an argument!
     clrPoints = 1;
     flagPoints = 15;
@@ -47,6 +49,7 @@ public class Minesweeper {
     if (hiScore <= calculateScore())
       hiScore = calculateScore();
     isDone = false;
+    moves = 0;
     generateBombs();
     for (int i = 0; i < vals.length; i++) {
       for (int j = 0; j < vals[0].length; j++) {
@@ -70,6 +73,16 @@ public class Minesweeper {
   // getter for hiScore
   public int getHiScore() {
     return hiScore;
+  }
+
+  // getter for moves
+  public int getMoves() {
+    return moves;
+  }
+
+  // getter for isDone
+  public boolean getDone() {
+    return isDone;
   }
 
   // returns array of letters that is SUPPOSED to be a game title!
@@ -146,9 +159,11 @@ public class Minesweeper {
       if (flag) {
         if (vals[x][y].equals("F")) {
           vals[x][y] = "";
+          moves++;
           return ("Un-flagged " + y + "," + x);
         } else {
           vals[x][y] = "F";
+          moves++;
           return ("Flagged " + y + "," + x);
         }
       } else {
@@ -156,19 +171,22 @@ public class Minesweeper {
         isDone = true;
         if (hiScore <= calculateScore())
           hiScore = calculateScore();
-        return ("Clicked " + y + "," + x + ".\nIt was a bomb.\nScore: " + calculateScore());
+        return ("Clicked " + y + "," + x + ".\nIt was a bomb.\nScore: " + calculateScore() + "\nRestarting game.");
       }
     } else {
       if (flag) {
         if (vals[x][y].equals("F")) {
           vals[x][y] = "";
+          moves++;
           return ("Un-flagged " + y + "," + x);
         } else {
           vals[x][y] = "F";
+          moves++;
           return ("Flagged " + y + "," + x);
         }
       } else {
         updateGameGrid(x, y);
+        moves++;
         return ("Clicked " + y + "," + x + ".\nUpdated Game Grid.");
       }
     }

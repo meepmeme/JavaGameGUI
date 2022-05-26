@@ -3,8 +3,13 @@ A Java Swing text-based minesweeper clone.
 [[./screenshot.png]]
 * Features
 9x9 game grid with coordinate guides
-21 bombs (should be able to change later)
-* To code [11/14]
+Adjustable bomb count
+Session high score
+Auto-restart
+* Usage
+=-b N=: spawn N bombs, provided N > 0
+=--help=: show help menu
+* To code [12/14]
 - [X] bomb generator
 - [X] instance variables
 - [X] handler actions
@@ -15,17 +20,19 @@ A Java Swing text-based minesweeper clone.
 - [X] JAR support
 - [X] makefile
 - [X] correct the coordinate system
-- [ ] game auto-restarts on finding a bomb
+- [X] game auto-restarts on finding a bomb
 - [X] more commandline options/better detection of arguments
   - [X] --help
   - [X] detect arguments in any position
 - [ ] Option to re-route popups to a JLabel for speed
 - [ ] up-to-date screenshot
-* Assignment requirements [4/4]
+* Assignment requirements [6/6]
 - [X] JFrame on start
 - [X] User input
 - [X] Popup after input with entered data and feedback
 - [X] Terminate on close
+- [X] high score
+- [X] correct answer streak (move counter)
 * File structure
 - ~.dir-locals.el~: emacs project envvars
 - ~.relpit, .replit.nix~: replit container configs

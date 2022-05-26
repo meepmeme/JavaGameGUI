@@ -85,7 +85,7 @@ public class Main extends JFrame {
     this.add(btn3, c);
 
     // displays new info every turn.
-    label2 = new JLabel("" + s.getBombNum() + "bombs, score: 0");
+    label2 = new JLabel("" + s.getBombNum() + "bombs, score: 0, moves: 0");
     c.gridx = 0;
     c.gridy = 7;
     c.gridwidth = 5;
@@ -128,7 +128,8 @@ public class Main extends JFrame {
         JOptionPane.showMessageDialog(null, "Restarting game.");
         s.restartGame();
         f.setDataVector(s.vals, s.colTitles());
-        label2.setText(s.getBombNum() + "Bombs, 0 clear spaces. High Score: " + s.getHiScore());
+        label2.setText(
+            s.getBombNum() + "Bombs, 0 clear spaces. High Score: " + s.getHiScore() + ". Moves: " + s.getMoves());
       }
       // if textBox, update coordinates.
       if (event.getSource() == tf1) {
@@ -141,14 +142,19 @@ public class Main extends JFrame {
       // click a spot. passes false to indicate click.
       if (event.getSource() == btn1) {
         JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, false));
+        if (s.getDone() == true) {
+          s.restartGame();
+        }
         f.setDataVector(s.vals, s.colTitles());
-        label2.setText(s.getBombNum() + "Bombs, " + s.publicScore() + "clear spaces. High Score: " + s.getHiScore());
+        label2.setText(s.getBombNum() + "Bombs, " + s.publicScore() + "clear spaces. High Score: " + s.getHiScore()
+            + ". Moves: " + s.getMoves());
       }
       // flag a spot. passes true to indicate is a flag.
       if (event.getSource() == btn2) {
         JOptionPane.showMessageDialog(null, s.clickSpot(clickY, clickX, true));
         f.setDataVector(s.vals, s.colTitles());
-        label2.setText(s.getBombNum() + "Bombs, " + s.publicScore() + "clear spaces. High Score: " + s.getHiScore());
+        label2.setText(s.getBombNum() + "Bombs, " + s.publicScore() + "clear spaces. High Score: " + s.getHiScore()
+            + ". Moves: " + s.getMoves());
       }
     }
   }
