@@ -2,9 +2,8 @@
 pkgs.stdenv.mkDerivation {
   buildInputs = [ pkgs.openjdk8 ];
   name = "JMinesweeper";
-  src = fetchgit {
-    url = "https://github.com/meepmeme/JavaGameGUI.git";
-  };
+  version = "0.0.1";
+  src = ./.;
   deps = [ pkgs.openjdk8 ];
   buildPhase = ''
 make clean jar
