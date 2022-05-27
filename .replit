@@ -2,7 +2,7 @@ compile = "make clean jar"
 run = ["java", "-jar", "./JMinesweeper.jar"]
 
 entrypoint = "./JMinesweeper/Main.java"
-hidden = ["**/*.class"]
+hidden = ["**/*.class", ".gitignore", ".dir-locals.el"]
 
 [packager]
 language = "java"
