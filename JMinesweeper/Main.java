@@ -20,8 +20,10 @@ public class Main extends JFrame {
   // creates UI, taking the Minesweeper object from the start as an argument.
   public Main(Minesweeper s) {
     super("JMinesweeper");
+
     this.setSize(500, 500);
-    this.getContentPane().setBackground(Color.green);
+    // this.getContentPane().setBackground(Color.green); // causes problems with gtk
+    // themes.
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
