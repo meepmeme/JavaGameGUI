@@ -2,7 +2,7 @@
 A Java Swing text-based minesweeper clone.
 [[https://forthebadge.com/images/badges/made-with-java.svg]]
 [[https://forthebadge.com/images/badges/works-on-my-machine.svg]]
-[[https://github.com/meepmeme/JavaGameGUI][https://github.com/meepmeme/JavaGameGUI/screenshot.png]]
+[[https://raw.githubusercontent.com/meepmeme/JavaGameGUI/main/screenshot.png]]
 /Window will not be the same color for you./
 * Features
 9x9 game grid with coordinate guides
